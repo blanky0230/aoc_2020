@@ -1,0 +1,18 @@
+{
+  "name": "aoc_2020",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:blanky0230/aoc_2020.git",
+  "author": "thomas.blank <thomas.blank@mayflower.de>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/jest": "^26.0.15",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.10"
+  }
+}
