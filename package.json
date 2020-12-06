@@ -5,6 +5,9 @@
   "repository": "git@github.com:blanky0230/aoc_2020.git",
   "author": "thomas.blank <thomas.blank@mayflower.de>",
   "license": "MIT",
+  "scripts": {
+    "format": "prettier -w day*/*.ts"
+  },
   "dependencies": {
     "@types/jest": "^26.0.15",
     "jest": "^26.6.3",
