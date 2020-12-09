@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+// import { readFileSync } from 'fs';
 
 const isValidInSequence = (
     sequence: Array<number>,
@@ -27,6 +27,7 @@ const findCorruptedNumber = (
 };
 
 const findSumSequence = (originalSequence: Array<number>, preamble: number) => {
+    //Huh. I was lucky this worked.
     const corruptNumber = findCorruptedNumber(originalSequence, preamble);
     let start = 0;
     let end = 0;
@@ -44,12 +45,20 @@ const findSumSequence = (originalSequence: Array<number>, preamble: number) => {
     return originalSequence.slice(start, end);
 };
 
-const data = readFileSync('input.txt', 'utf-8')
-    .split('\n')
-    .filter((x) => x)
-    .map((n) => Number.parseInt(n, 10));
+const foo = async () => {
+    const data = await Deno.readTextFile('input.txt').then((f) =>
+        f
+            .split('\n')
+            .filter((x) => x)
+            .map((n) => Number.parseInt(n, 10))
+    );
+    console.log(findCorruptedNumber(data, 25));
+    const part2 = findSumSequence(data, 25).sort((a, b) => a - b);
+    console.log(part2[0] + part2[part2.length - 1]);
+};
 
-console.log(findCorruptedNumber(data, 25));
+foo();
+
 // const testData = [
 //     35,
 //     20,
@@ -72,6 +81,4 @@ console.log(findCorruptedNumber(data, 25));
 //     309,
 //     576,
 // ];
-const part2 = findSumSequence(data, 25).sort((a, b) => a - b);
-console.log(part2[0] + part2[part2.length - 1]);
 // console.log(findSumSequence(testData, 5));

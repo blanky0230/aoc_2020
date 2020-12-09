@@ -15,13 +15,13 @@ const main = () => {
     console.log(Math.max(...ids));
     ids.sort((a, b) => a - b);
     const myId = ids.reduce(
-        (carry, _, currIdx, all) =>
-            carry !== 0
+        (carry: number | null, _, currIdx, all) =>
+            carry !== null
                 ? carry
                 : all[currIdx + 1] - all[currIdx] > 1
                 ? all[currIdx] + 1
                 : carry,
-        0
+        null
     );
     console.log(myId);
 };
