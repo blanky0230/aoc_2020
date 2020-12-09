@@ -35,9 +35,6 @@ const findSumSequence = (originalSequence: Array<number>, preamble: number) => {
         curSum = originalSequence
             .slice(start, end)
             .reduce((c, cu) => c + cu, 0);
-        if (curSum === corruptNumber) {
-            return originalSequence.slice(start, end);
-        }
         if (curSum > corruptNumber) {
             start++;
         } else {
