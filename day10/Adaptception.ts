@@ -62,8 +62,13 @@ const partTwo = async () => {
 
 const partOne = async () => {
     // const adapters: number[] = [16, 10, 15, 5, 1, 11, 7, 19, 6, 12, 4];
-    const adapters: number[] = await Deno.readTextFile('day10/input.txt').then((f: string) =>
-        f.split('\n').filter((x: string) => x).map((n: string) => Number.parseInt(n, 10)));
+    const adapters: number[] = await Deno.readTextFile('day10/input.txt').then(
+        (f: string) =>
+            f
+                .split('\n')
+                .filter((x: string) => x)
+                .map((n: string) => Number.parseInt(n, 10))
+    );
 
     const pluggedStack = [
         ...plugIntoSocket(adapters, [0]),
