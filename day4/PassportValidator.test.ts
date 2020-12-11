@@ -1,20 +1,20 @@
 import { validatePassportRaw } from './PassportValidator';
 
-test('returns true for valid passort', () => {
+partOne('returns true for valid passort', () => {
     const passportRaw = `ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
     byr:1937 iyr:2017 cid:147 hgt:183cm`;
 
     expect(validatePassportRaw(passportRaw)).toBe(true);
 });
 
-test('returns false for invalid passport', () => {
+partOne('returns false for invalid passport', () => {
     const passportRaw = `iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
     hcl:#cfa07d byr:1929`;
 
     expect(validatePassportRaw(passportRaw)).toBe(false);
 });
 
-test('returns 2 valid passports from Exaple', () => {
+partOne('returns 2 valid passports from Exaple', () => {
     const inputs = [
         `ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 byr:1937 iyr:2017 cid:147 hgt:183cm`,

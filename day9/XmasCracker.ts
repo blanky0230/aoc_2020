@@ -46,7 +46,7 @@ const findSumSequence = (originalSequence: Array<number>, preamble: number) => {
 };
 
 const foo = async () => {
-    const data = await Deno.readTextFile('input.txt').then((f) =>
+    const data = await Deno.readTextFile('day9/input.txt').then((f) =>
         f
             .split('\n')
             .filter((x) => x)
