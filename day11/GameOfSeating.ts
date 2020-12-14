@@ -11,7 +11,10 @@ const seat = (position: Vector, state: SeatState): Seat => ({
     state,
 });
 
-const neighboursSorrounding = (seat: Seat, world: Map<string, Seat>): Seat[] => {
+const neighboursSorrounding = (
+    seat: Seat,
+    world: Map<string, Seat>
+): Seat[] => {
     const neighbours = new Array<Seat>();
     const [centerX, centerY] = seat.position;
     for (let i = centerX - 1; i <= centerX + 1; i++) {
@@ -62,14 +65,19 @@ const addVectors = (vecA: Vector, vecB: Vector): Vector => [
     vecA[1] + vecB[1],
 ];
 
-const mustToggle = (seat: Seat, world: Map<string, Seat>, neighboursFunc: (seat: Seat, world: Map<string, Seat>) => Seat[], dieThreshold: number): boolean => {
+const mustToggle = (
+    seat: Seat,
+    world: Map<string, Seat>,
+    neighboursFunc: (seat: Seat, world: Map<string, Seat>) => Seat[],
+    dieThreshold: number
+): boolean => {
     switch (seat.state) {
         case '.':
             return false;
         case '#':
             return (
-                neighboursFunc(seat, world).filter((s) => s.state === '#').length >=
-                dieThreshold
+                neighboursFunc(seat, world).filter((s) => s.state === '#')
+                    .length >= dieThreshold
             );
         case 'L':
             return (
@@ -85,7 +93,11 @@ const cellsAsArray = (cellMap: Map<string, Seat>): Seat[] => {
     return result;
 };
 
-const update = (world: Map<string, Seat>, neighboursFunc: (seat: Seat, world: Map<string, Seat>) => Seat[], dieThreshold: number): Map<string, Seat> =>
+const update = (
+    world: Map<string, Seat>,
+    neighboursFunc: (seat: Seat, world: Map<string, Seat>) => Seat[],
+    dieThreshold: number
+): Map<string, Seat> =>
     cellsAsArray(world)
         .filter((seat) => mustToggle(seat, world, neighboursFunc, dieThreshold))
         .map(
