@@ -247,3 +247,4 @@ const testInstructions = async () => {
 };
 
 testInstructions();
+export {};
