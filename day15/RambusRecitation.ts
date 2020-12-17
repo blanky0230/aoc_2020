@@ -37,48 +37,45 @@ const play = ({ saidNumbers, turnToNumber, turn }: Game): Game => {
 };
 
 const playIterative = (targetTurn: number): void => {
-    let test = '15,12,0,14,3,1'.split(',').map((v) => parseInt(v.trim()));
+    const test = '15,12,0,14,3,1'.split(',').map((v) => parseInt(v.trim()));
     let turnToNumber = test.reduce(
         (tn, n, idx) => tn.set(idx + 1, n),
         new Map<number, number>()
     );
-    let saidNumbers = test.reduce(
+    const saidNumbers = test.reduce(
         (sn, n, idx) => sn.set(n, [idx + 1]),
         new Map<number, number[]>()
     );
-    let turn = test.length;
+    let turn = test.length + 1;
+    let nextSweepStart = turn;
 
-    while (turn < targetTurn) {
-        if (turn % 1000000 === 0) {
+    while (turn <= targetTurn) {
+        if (turn % 1000 === 0) {
             console.log(`still running... ${turn}`);
-        }
-        let lastSaid: number | undefined = turnToNumber.get(turn - 1);
-        if (lastSaid === undefined) {
-            throw new Error();
+            console.log('Flushing the toilet...');
+            while (nextSweepStart < turn - 5) {
+                if (turnToNumber.has(nextSweepStart)) {
+                    turnToNumber.delete(nextSweepStart);
+                }
+                nextSweepStart++;
+            }
         }
 
-        let lastSaidAtTurns = saidNumbers.get(lastSaid) ?? [];
+        const lastSaidAtTurns =
+            saidNumbers.get(turnToNumber.get(turn - 1)!) ?? [];
 
         if (lastSaidAtTurns.length < 2) {
-            if (!saidNumbers.has(0)) {
-                saidNumbers.set(0, []);
-            }
-            saidNumbers.get(0)!.push(turn);
+            const newSaid = saidNumbers.get(0) ?? [];
+            newSaid.push(turn);
+            saidNumbers.set(0, newSaid);
             turnToNumber.set(turn, 0);
-            turn += 1;
+            turn++;
         } else {
             let atTurns = lastSaidAtTurns.slice(-2);
             let say = atTurns[1] - atTurns[0];
-            if (say === undefined || turn === undefined) {
-                console.log('AHA');
-            }
             turnToNumber.set(turn, say);
-
-            if (!saidNumbers.has(say)) {
-                saidNumbers.set(say, []);
-            }
-            saidNumbers.get(say)!.push(turn);
-            turn += 1;
+            saidNumbers.set(say, [...(saidNumbers.get(say) ?? []), turn]);
+            turn++;
         }
     }
     console.log(turnToNumber.get(targetTurn));
@@ -110,3 +107,4 @@ const partTwo = () => {
 partOne();
 console.log('-----');
 partTwo();
+export {};
